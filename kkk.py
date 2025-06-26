@@ -7,7 +7,7 @@ def random_predict(number:int=1) ->int:
         number (int, optional): загаданное число. Defaults to 1.
 
     Returns:
-        int: число попыток jjm
+        int: число попыток jjm jjjjj
     """
     count=0
     
