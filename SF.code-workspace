@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "../../SF"
+		},
+		{
+			"name": "sf_data_science",
+			"path": "."
+		},
+		{
+			"path": "../New_project"
+		},
+		{
+			"path": "../тренировки в Stepik"
+		}
+	],
+	"settings": {}
+}
