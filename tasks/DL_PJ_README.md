@@ -50,6 +50,24 @@
 | thal | 0 | 3 | int64 |
 | class | 0 | 2 | int64 |
 
+### Качество данных (test): missing / unique / dtype
+| feature | missing | unique | dtype |
+|---|---:|---:|---|
+|ID |	0 |	400000 |	int64|
+|age |	0|	397391|	float64|
+|sex |	0	|2	|int64|
+|chest |	0	|90257|	float64|
+|resting_blood_pressure	|0	|398274|	float64|
+|serum_cholestoral	|0	 |399436 |	float64|
+|fasting_blood_sugar|	0 |	2	|int64|
+|resting_electrocardiographic_results	|0	|3	|int64|
+|maximum_heart_rate_achieved|	0	|398888 |	float64|
+|exercise_induced_angina|	0|	2	|int64|
+|oldpeak	|0 |	262462|	float64|
+|slope|	0	|3	|int64|
+|number_of_major_vessels|	0	|4	|int64|
+|thal|	0|	3	|int64|
+
 **Комментарий:** по смыслу `chest` должен быть категориальным (обычно 1–4), однако он имеет тип `float64` и очень много уникальных значений → признак требует предобработки (приведение к категориям и кодирование).
 
 ### Дубликаты и пропуски
@@ -113,7 +131,7 @@ ROC-AUC оценивает качество ранжирования: наско
 | Logistic Regression | стандартизация числовых признаков (`StandardScaler`) | 0.9557 |
 | RandomForestClassifier | устойчив к выбросам, учитывает нелинейности | 0.9604 |
 
-**Итоговая модель: так как **RandomForest** показал более высокое значение ROC-AUC на валидации, именно он выбран в качестве итоговой модели для построения предсказаний на тестовой выборке и формирования файла submission.
+### Так как **RandomForest** показал более высокое значение ROC-AUC на валидации, именно он выбран в качестве итоговой модели для построения предсказаний на тестовой выборке и формирования файла submission.
 
 ---
 
