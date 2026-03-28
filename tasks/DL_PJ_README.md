@@ -8,7 +8,6 @@
 - [3. EDA (графики)](#3-eda-графики)
 - [4. Обучение моделей](#4-обучение-моделей)
 - [5. Предсказание и submission](#5-предсказание-и-submission)
-- [6. Артефакты проекта](#6-артефакты-проекта)
 
 ---
 
@@ -20,7 +19,7 @@
 | train | 600 000 | 15 | `class` |
 | test  | 400 000 | 14 | — |
 
-**Постановка задачи:** целевая переменная `class` принимает значения 0/1 → задача **бинарной класс��фикации**.
+**Постановка задачи:** целевая переменная `class` принимает значения 0/1 → задача **бинарной классификации**.
 
 ---
 
@@ -57,15 +56,6 @@
 - Пропусков: **0**
 - Дубликатов: **0**
 
-<details>
-<summary>Показать df.info() (train/test)</summary>
-
-```text
-(сюда можно вставить вывод df.info(), если требуется)
-```
-
-</details>
-
 ---
 
 ## 3. EDA (графики)
@@ -80,12 +70,12 @@
 - Наиболее заметная связь с `class`: `oldpeak` (+), `maximum_heart_rate_achieved` (-), `age` (+).
 - Сильной мультиколлинеарности среди непрерывных признаков не наблюдается.
 
-![Correlation heatmap](tasks/dl_pj_assets/corr_heatmap.png)
+![Correlation heatmap](https://github.com/KonstGen921/sf_data_science/blob/main/tasks/1/heatmap_DL_PJ.png?raw=true)
 
 ### Диаграммы рассеяния (Pairplot / Scatter)
 Классы заметно перекрываются в большинстве пар признаков → простая линейная граница выражена слабо, поэтому целесообразны модели, учитывающие нелинейности и взаимодействия признаков.
 
-![Pairplot](tasks/dl_pj_assets/pairplot.png)
+![Pairplot](https://github.com/KonstGen921/sf_data_science/blob/main/tasks/1/pairplot_DL_PJ.png?raw=true)
 
 ---
 
@@ -115,9 +105,3 @@ ROC-AUC оценивает качество ранжирования: наско
 
 Файл: `DL_PJ_submission_2.csv`.
 
----
-
-## 6. Артефакты проекта
-- Ноутбук: `tasks/DL_PJ.ipynb` / `tasks/DL_PJ copy.ipynb`
-- Доп. описание: `tasks/DL_PJ_README.md`
-- Изображения для README: `tasks/dl_pj_assets/*.png`
