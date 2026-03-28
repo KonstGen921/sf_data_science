@@ -73,8 +73,8 @@
 ### Выбросы (Boxplot)
 Выбросы присутствуют в числовых признаках (особенно `oldpeak`), а также заметны хвосты у `serum_cholestoral` и `resting_blood_pressure`. При этом значения остаются в разумных диапазонах. Для базовой модели RandomForest выбросы отдельно не удалялись, т.к. модель устойчива к ним.
 
-![Boxplot](/Users/konstantingeneralov/SF/boxplot_train.png)
-![Boxplot](/Users/konstantingeneralov/SF/boxplot_test.png)
+![Boxplot](/Users/konstantingeneralov/IDE/sf_data_science/tasks/1/boxplot_train.png)
+![Boxplot](/Users/konstantingeneralov/IDE/sf_data_science/tasks/1/boxplot_test.png)
 
 ### Корреляционная матрица (числовые признаки)
 - Наиболее заметная связь с `class`: `oldpeak` (+), `maximum_heart_rate_achieved` (-), `age` (+).
