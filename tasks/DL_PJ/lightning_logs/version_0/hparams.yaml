@@ -1,0 +1,6 @@
+dropout: 0.2
+hidden_sizes: !!python/tuple
+- 128
+- 64
+lr: 0.001
+n_features: 20
