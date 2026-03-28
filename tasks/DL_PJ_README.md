@@ -1,116 +1,122 @@
-## Выводы по этапу загрузки данных и первичного анализа
+# DL_PJ — Бинарная классификация (Heart Disease)
 
-1. **Данные для обучения и тестирования**
-   - Получены два датасета:
-     - **train**: 600 000 строк, 15 столбцов (включая целевой признак `class`);
-     - **test**: 400 000 строк, 14 столбцов (целевая переменная отсутствует).
+Проект: анализ данных, EDA, обучение моделей и формирование submission для задачи бинарной классификации `class`.
 
-<class 'pandas.DataFrame'>
-RangeIndex: 600000 entries, 0 to 599999
-Data columns (total 15 columns):
- #   Column                                Non-Null Count   Dtype  
----  ------                                --------------   -----  
- 0   ID                                    600000 non-null  int64  
- 1   age                                   600000 non-null  float64
- 2   sex                                   600000 non-null  int64  
- 3   chest                                 600000 non-null  float64
- 4   resting_blood_pressure                600000 non-null  float64
- 5   serum_cholestoral                     600000 non-null  float64
- 6   fasting_blood_sugar                   600000 non-null  int64  
- 7   resting_electrocardiographic_results  600000 non-null  int64  
- 8   maximum_heart_rate_achieved           600000 non-null  float64
- 9   exercise_induced_angina               600000 non-null  int64  
- 10  oldpeak                               600000 non-null  float64
- 11  slope                                 600000 non-null  int64  
- 12  number_of_major_vessels               600000 non-null  int64  
- 13  thal                                  600000 non-null  int64  
- 14  class                                 600000 non-null  int64  
-dtypes: float64(6), int64(9)
-memory usage: 68.7 MB
+## Содержание
+- [1. Данные](#1-данные)
+- [2. Первичный анализ](#2-первичный-анализ)
+- [3. EDA (графики)](#3-eda-графики)
+- [4. Обучение моделей](#4-обучение-моделей)
+- [5. Предсказание и submission](#5-предсказание-и-submission)
+- [6. Артефакты проекта](#6-артефакты-проекта)
 
+---
 
-<class 'pandas.DataFrame'>
-RangeIndex: 400000 entries, 0 to 399999
-Data columns (total 14 columns):
- #   Column                                Non-Null Count   Dtype  
----  ------                                --------------   -----  
- 0   ID                                    400000 non-null  int64  
- 1   age                                   400000 non-null  float64
- 2   sex                                   400000 non-null  int64  
- 3   chest                                 400000 non-null  float64
- 4   resting_blood_pressure                400000 non-null  float64
- 5   serum_cholestoral                     400000 non-null  float64
- 6   fasting_blood_sugar                   400000 non-null  int64  
- 7   resting_electrocardiographic_results  400000 non-null  int64  
- 8   maximum_heart_rate_achieved           400000 non-null  float64
- 9   exercise_induced_angina               400000 non-null  int64  
- 10  oldpeak                               400000 non-null  float64
- 11  slope                                 400000 non-null  int64  
- 12  number_of_major_vessels               400000 non-null  int64  
- 13  thal                                  400000 non-null  int64  
-dtypes: float64(6), int64(8)
-memory usage: 42.7 MB
+## 1. Данные
 
+### Размеры датасетов
+| Датасет | Строк | Столбцов | Цель |
+|---|---:|---:|---|
+| train | 600 000 | 15 | `class` |
+| test  | 400 000 | 14 | — |
 
-2. **Постановка задачи**
-   - Целевая переменная — **`class`** (значения 0/1), следовательно решается задача **бинарной классификации**.
+**Постановка задачи:** целевая переменная `class` принимает значения 0/1 → задача **бинарной класс��фикации**.
 
-3. **Типы признаков**
-   - **Категориальные/дискретные признаки**:  
-     `sex`, `chest`, `fasting_blood_sugar`, `resting_electrocardiographic_results`,  
-     `exercise_induced_angina`, `slope`, `number_of_major_vessels`, `thal`.
-   - **Непрерывные числовые признаки**:  
-     `age`, `resting_blood_pressure`, `serum_cholestoral`, `maximum_heart_rate_achieved`, `oldpeak`.
-   - Отдельно присутствует столбец **`ID`** — это идентификатор записи; он не несёт полезной информации для модели и должен быть исключён из набора признаков при обучении.
+---
 
-4. **Качество данных (пропуски и дубликаты)**
-   - **Пропущенных значений и дубликатов** в train и test не обнаружено.
+## 2. Первичный анализ
 
-Количество дубликатов в тренинговой выборке: 0
-Количество дубликатов в тестовой выборке: 0
-Train
-	                              missing	unique	dtype
-ID	                                    0	600000	int64
-age	                                 0	594106	float64
-sex	                                 0	2	      int64
-chest	                                 0	133009	float64
-resting_blood_pressure	               0	596241	float64
-serum_cholestoral	                     0	598797	float64
-fasting_blood_sugar	                  0	2	      int64
-resting_electrocardiographic_results	0	3	      int64
-maximum_heart_rate_achieved	         0	597583	float64
-exercise_induced_angina	               0	2	      int64
-oldpeak	                              0	384255	float64
-slope	                                 0	3	      int64
-number_of_major_vessels	               0	4	      int64
-thal	                                 0	3	      int64
-class	                                 0	2	      int64
+### Типы признаков
+- **Числовые (continuous):** `age`, `resting_blood_pressure`, `serum_cholestoral`, `maximum_heart_rate_achieved`, `oldpeak`
+- **Категориальные/дискретные:** `sex`, `chest`, `fasting_blood_sugar`, `resting_electrocardiographic_results`,  
+  `exercise_induced_angina`, `slope`, `number_of_major_vessels`, `thal`
+- **`ID`** — идентификатор записи (не используется как признак при обучении; нужен для формирования submission)
 
-Test
-	                              missing	unique	dtype
-ID	                                    0	400000	int64
-age	                                 0	397391	float64
-sex	                                 0	2	      int64
-chest	                                 0	90257	   float64
-resting_blood_pressure	               0	398274	float64
-serum_cholestoral	                     0	399436	float64
-fasting_blood_sugar	                  0	2	      int64
-resting_electrocardiographic_results	0	3	      int64
-maximum_heart_rate_achieved	         0	398888	float64
-exercise_induced_angina             	0	2	      int64
-oldpeak	                              0	262462	float64
-slope	                                 0	3	      int64
-number_of_major_vessels	               0	4	      int64
-thal	                                 0	3	      int64
+### Качество данных (train): missing / unique / dtype
+| feature | missing | unique | dtype |
+|---|---:|---:|---|
+| ID | 0 | 600000 | int64 |
+| age | 0 | 594106 | float64 |
+| sex | 0 | 2 | int64 |
+| chest | 0 | 133009 | float64 |
+| resting_blood_pressure | 0 | 596241 | float64 |
+| serum_cholestoral | 0 | 598797 | float64 |
+| fasting_blood_sugar | 0 | 2 | int64 |
+| resting_electrocardiographic_results | 0 | 3 | int64 |
+| maximum_heart_rate_achieved | 0 | 597583 | float64 |
+| exercise_induced_angina | 0 | 2 | int64 |
+| oldpeak | 0 | 384255 | float64 |
+| slope | 0 | 3 | int64 |
+| number_of_major_vessels | 0 | 4 | int64 |
+| thal | 0 | 3 | int64 |
+| class | 0 | 2 | int64 |
 
+**Комментарий:** по смыслу `chest` должен быть категориальным (обычно 1–4), однако он имеет тип `float64` и очень много уникальных значений → признак требует предобработки (приведение к категориям и кодирование).
 
-5. **Замечание по признаку `chest`**
-   - Признак `chest` по смыслу должен быть **категориальным** (обычно категории 1–4), однако в данных встречаются **вещественные и даже отрицательные** значения.
-   - Следовательно, `chest` требует предобработки: приведение к допустимым категориям (например, округление/биннинг), преобразование к целочисленному типу и последующее кодирование.
+### Дубликаты и пропуски
+- Пропусков: **0**
+- Дубликатов: **0**
 
-6. **Общий итог**
-   - В целом структура данных корректна и пригодна для дальнейшего EDA и моделирования; основная выявленная проблема на этапе первичного анализа связана с корректной обработкой признака `chest`.
+<details>
+<summary>Показать df.info() (train/test)</summary>
 
+```text
+(сюда можно вставить вывод df.info(), если требуется)
+```
 
+</details>
 
+---
 
+## 3. EDA (графики)
+
+### Выбросы (Boxplot)
+Выбросы присутствуют в числовых признаках (особенно `oldpeak`), а также заметны хвосты у `serum_cholestoral` и `resting_blood_pressure`. При этом значения остаются в разумных диапазонах. Для базовой модели RandomForest выбросы отдельно не удалялись, т.к. модель устойчива к ним.
+
+![Boxplot](tasks/dl_pj_assets/boxplot.png)
+
+### Корреляционная матрица (числовые признаки)
+- Наиболее заметная связь с `class`: `oldpeak` (+), `maximum_heart_rate_achieved` (-), `age` (+).
+- Сильной мультиколлинеарности среди непрерывных признаков не наблюдается.
+
+![Correlation heatmap](tasks/dl_pj_assets/corr_heatmap.png)
+
+### Диаграммы рассеяния (Pairplot / Scatter)
+Классы заметно перекрываются в большинстве пар признаков → простая линейная граница выражена слабо, поэтому целесообразны модели, учитывающие нелинейности и взаимодействия признаков.
+
+![Pairplot](tasks/dl_pj_assets/pairplot.png)
+
+---
+
+## 4. Обучение моделей
+
+Датасет `train` был разделён на train/validation для оценки качества.
+
+### Почему ROC-AUC
+ROC-AUC оценивает качество ранжирования: насколько модель в среднем присваивает объектам класса 1 более высокие вероятности, чем объектам класса 0. Метрика не привязана к одному порогу (например, 0.5), поэтому удобна для сравнения моделей.
+
+### Результаты
+| Модель | Особенности | ROC-AUC (val) |
+|---|---|---:|
+| Logistic Regression | стандартизация числовых признаков (`StandardScaler`) | 0.9557 |
+| RandomForestClassifier | устойчив к выбросам, учитывает нелинейности | 0.9604 |
+
+**Итоговая модель:** RandomForest (лучший ROC-AUC на валидации).
+
+---
+
+## 5. Предсказание и submission
+
+Для тестовой выборки получены предсказания `class` и сформирован файл submission в формате:
+
+- `ID` — идентификатор записи
+- `class` — предсказанный класс (0/1)
+
+Файл: `DL_PJ_submission_2.csv`.
+
+---
+
+## 6. Артефакты проекта
+- Ноутбук: `tasks/DL_PJ.ipynb` / `tasks/DL_PJ copy.ipynb`
+- Доп. описание: `tasks/DL_PJ_README.md`
+- Изображения для README: `tasks/dl_pj_assets/*.png`
