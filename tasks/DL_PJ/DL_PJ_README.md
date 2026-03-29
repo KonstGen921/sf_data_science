@@ -86,8 +86,8 @@
 - При этом значения в целом остаются в разумных диапазонах и не выглядят как явно ошибочные/нефизиологичные (например, давление и ЧСС не принимают отрицательных значений).
 - Так как в качестве базовой модели используется **RandomForest**, который достаточно устойчив к выбросам и не требует строгой нормализации распределений, выбросы **не удалялись и не клиппировались**, чтобы не потерять потенциально информативные наблюдения.
 
-![Boxplot](https://github.com/KonstGen921/sf_data_science/blob/main/tasks/1/boxplot_test.png?raw=true)
-![Boxplot](https://github.com/KonstGen921/sf_data_science/blob/main/tasks/1/boxplot_train.png?raw=true)
+![Boxplot](https://github.com/KonstGen921/sf_data_science/blob/main/tasks/DL_PJ/1/boxplot_test.png?raw=true)
+![Boxplot](https://github.com/KonstGen921/sf_data_science/blob/main/tasks/DL_PJ/1/boxplot_train.png?raw=true)
 
 ### Корреляционная матрица (числовые признаки)
 - Наиболее заметная связь с целевой переменной `class`:
@@ -96,13 +96,13 @@
   - `age` — слабая положительная корреляция (≈ 0.22).
 - Между самими непрерывными признаками сильной мультиколлинеарности не наблюдается; выделяется ожидаемая зависимость `age` и `maximum_heart_rate_achieved` (≈ -0.31).
 
-![Correlation heatmap](https://github.com/KonstGen921/sf_data_science/blob/main/tasks/1/heatmap_DL_PJ.png?raw=true)
+![Correlation heatmap](https://github.com/KonstGen921/sf_data_science/blob/main/tasks/DL_PJ/1/heatmap_DL_PJ.png?raw=true)
 
 ### Диаграммы рассеяния (Pairplot / Scatter)
 - Визуально классы **сильно перекрываются** практически во всех парах признаков: простой линейной разделимости не наблюдается.
 - Это подтверждает, что для решения задачи целесообразно использовать модели, способные учитывать **нелинейные зависимости и взаимодействия признаков** (например, RandomForest).
 
-![Pairplot](https://github.com/KonstGen921/sf_data_science/blob/main/tasks/1/pairplot_DL_PJ.png?raw=true)
+![Pairplot](https://github.com/KonstGen921/sf_data_science/blob/main/tasks/DL_PJ/1/pairplot_DL_PJ.png?raw=true)
 
 ---
 
